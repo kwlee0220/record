@@ -155,8 +155,12 @@ public class RecordSchema implements Serializable  {
 	public RecordSchema project(Iterable<String> key) {
 		Utilities.checkNotNullArgument(key, "name list is null");
 		
-		return FStream.from(key)
-					.flatMapOption(this::findColumn)
+		return project(FStream.from(key));
+	}
+	public RecordSchema project(FStream<String> keys) {
+		Utilities.checkNotNullArgument(keys, "name list is null");
+		
+		return keys.flatMapOption(this::findColumn)
 					.foldLeft(RecordSchema.builder(), (b,c) -> b.addColumn(c))
 					.build();
 	}

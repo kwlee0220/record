@@ -7,12 +7,12 @@ import java.util.Set;
 
 import com.google.common.collect.Maps;
 
-import record.AbstractRecordSet;
 import record.Column;
 import record.DefaultRecord;
 import record.Record;
 import record.RecordSchema;
-import record.RecordSet;
+import record.RecordStream;
+import record.stream.AbstractRecordStream;
 import utils.func.FOption;
 import utils.stream.FStream;
 
@@ -88,8 +88,8 @@ public class ColumnSelector implements Serializable {
 						.toList().toArray();
 	}
 	
-	public RecordSet select(Record outer, RecordSet inners) {
-		return new NestedLoopRecordSet(outer, inners, this);
+	public RecordStream select(Record outer, RecordStream inners) {
+		return new NestedLoopRecordStream(outer, inners, this);
 	}
 	
 	@Override
@@ -97,13 +97,13 @@ public class ColumnSelector implements Serializable {
 		return m_colExpr;
 	}
 	
-	private static class NestedLoopRecordSet extends AbstractRecordSet {
-		private final RecordSet m_inners;
+	private static class NestedLoopRecordStream extends AbstractRecordStream {
+		private final RecordStream m_inners;
 		private final Record m_innerRecord;
 		private final ColumnSelector m_selector;
 		private final Map<String,Record> m_binding = Maps.newHashMap();
 		
-		private NestedLoopRecordSet(Record outer, RecordSet inners, ColumnSelector selector) {
+		private NestedLoopRecordStream(Record outer, RecordStream inners, ColumnSelector selector) {
 			m_inners = inners;
 			m_innerRecord = DefaultRecord.of(inners.getRecordSchema());
 			m_selector = selector;

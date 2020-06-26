@@ -41,7 +41,7 @@ class AvroRecord implements Record {
 
 	@Override
 	public Record set(int idx, Object value) {
-		Object field = AvroRecordAdaptors.toAvroValue(m_schema.getColumnAt(idx).type(), value);
+		Object field = AvroDataSets.toAvroValue(m_schema.getColumnAt(idx).type(), value);
 		m_grecord.put(idx,  field);
 		return this;
 	}

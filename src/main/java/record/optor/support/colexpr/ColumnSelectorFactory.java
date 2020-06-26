@@ -13,6 +13,9 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import record.RecordSchema;
+import record.optor.support.colexpr.ColumnSelectionExprBaseVisitor;
+import record.optor.support.colexpr.ColumnSelectionExprLexer;
+import record.optor.support.colexpr.ColumnSelectionExprParser;
 import record.optor.support.colexpr.ColumnSelectionExprParser.AliasContext;
 import record.optor.support.colexpr.ColumnSelectionExprParser.AllButContext;
 import record.optor.support.colexpr.ColumnSelectionExprParser.AllContext;

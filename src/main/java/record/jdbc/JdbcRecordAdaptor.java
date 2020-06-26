@@ -21,7 +21,7 @@ import com.vividsolutions.jts.geom.Geometry;
 import record.Column;
 import record.Record;
 import record.RecordSchema;
-import record.RecordSetException;
+import record.RecordStreamException;
 import record.type.DataType;
 import record.type.GeometryDataType;
 import utils.LocalDateTimes;
@@ -205,7 +205,7 @@ public abstract class JdbcRecordAdaptor {
 			case BINARY:
 				return declareBinaryColumn(col, notNull);
 			default:
-				throw new RecordSetException("unsupported DataType: " + col);
+				throw new RecordStreamException("unsupported DataType: " + col);
 		}
 	}
 	
@@ -350,7 +350,7 @@ public abstract class JdbcRecordAdaptor {
 				case TIME:
 					return rs.getTime(colIdx).toLocalTime();
 				default:
-					throw new RecordSetException("unexpected DataType: " + col.type());
+					throw new RecordStreamException("unexpected DataType: " + col.type());
 			}
 		}
 	}
@@ -401,7 +401,7 @@ public abstract class JdbcRecordAdaptor {
 					pstmt.setBoolean(idx, (Boolean)value);
 					break;
 				default:
-					throw new RecordSetException("unexpected DataType: " + col.type());
+					throw new RecordStreamException("unexpected DataType: " + col.type());
 			}
 		}
 	}
